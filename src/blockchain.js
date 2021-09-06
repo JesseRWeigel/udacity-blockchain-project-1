@@ -116,7 +116,7 @@ class Blockchain {
             let self = this;
             const time = parseInt(message.split(':')[1])
             let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
-            if (currentTime - time > 250) {
+            if (currentTime - time > 300) {
                 reject('too much time has elapsed')
             } else {
                 bitcoinMessage.verify(message, address, signature)
