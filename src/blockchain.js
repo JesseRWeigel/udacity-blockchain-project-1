@@ -176,7 +176,7 @@ class Blockchain {
         return new Promise((resolve, reject) => {
             self.chain.forEach(async item => {
                 const block = await item.getBData()
-                if(block.owner === address) stars.push(block)
+                if(block?.owner === address) stars.push(block)
             })
             resolve(stars)
         });
@@ -193,10 +193,13 @@ class Blockchain {
         let errorLog = [];
         return new Promise(async (resolve, reject) => {
             self.chain.forEach(async item => {
+                try{
                 if(item.height < 1) {
                    await item.validate() ? true : errorLog.push("Not valid")
-                } else if(item.previousBlockHash === self.chain[block.height = 1].hash) {
+                } else if(item.previousBlockHash === self.chain[item.height = 1].hash) {
                     await item.validate() ? true : errorLog.push("Not valid")
+                }} catch (error) {
+                    console.log(error)
                 }
             })
             resolve(errorLog);
